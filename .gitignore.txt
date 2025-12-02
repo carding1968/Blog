@@ -7,35 +7,4 @@ obj/
 out/
 .vs/
 
-## ASP.NET specific files
-App_Data/
-App_Logs/
-*.log
 
-## Configuration files
-*.config
-*.env
-
-## Package directories
-packages/
-node_modules/
-
-## Backup and temporary files
-*.bak
-*.swp
-*.tmp
-*.temp
-~$*
-
-## IDE-specific files
-.vscode/
-.idea/
-*.code-workspace
-
-
-## Dependency files
-project.lock.json
-project.fragment.lock.json
-
-## Publish output
-wwwroot/

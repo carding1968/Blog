@@ -170,3 +170,4 @@ C:\Users\ChristianCalimutan\source\repos\Udemy\Blog\Blog.Web\bin\Debug\net8.0\ru
 C:\Users\ChristianCalimutan\source\repos\Udemy\Blog\Blog.Web\obj\Debug\net8.0\Blog.Web.csproj.AssemblyReference.cache
 C:\Users\ChristianCalimutan\source\repos\Udemy\Blog\Blog.Web\obj\Debug\net8.0\Blog.Web.csproj.Up2Date
 C:\Users\ChristianCalimutan\source\repos\Udemy\Blog\Blog.Web\obj\Debug\net8.0\swae.build.ex.cache
+C:\Users\ChristianCalimutan\source\repos\Udemy\Blog\Blog.Web\obj\Debug\net8.0\Blog.Web.sourcelink.json
