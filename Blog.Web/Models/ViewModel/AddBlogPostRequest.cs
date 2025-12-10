@@ -4,6 +4,7 @@ namespace Blog.Web.Models.ViewModel
 {
     public class AddBlogPostRequest
     {
+        
         public string Heading { get; set; }
 
         public string PageTitle { get; set; }
