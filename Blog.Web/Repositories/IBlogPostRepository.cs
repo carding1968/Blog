@@ -13,7 +13,7 @@ namespace Blog.Web.Repositories
 
         Task<BlogPost?> Delete(Guid id);
 
-
+        Task<BlogPost?> GetByUrlHandle(string urlHandle);
 
     }
 }

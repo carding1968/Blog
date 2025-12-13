@@ -47,6 +47,12 @@ namespace Blog.Web.Repositories
             return blogPosts;
         }
 
+        public async Task<BlogPost?> GetByUrlHandle(string urlHandle)
+        {
+            return await dbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.UrlHandle == urlHandle);
+
+        }
+
         public async Task<BlogPost?> Update(BlogPost blogPost)
         {
             var existingBlogPost = await dbContext.BlogPosts.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == blogPost.Id);

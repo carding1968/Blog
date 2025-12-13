@@ -1,13 +1,15 @@
 ﻿using Blog.Web.Models.Domain;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Blog.Web.Data
 {
     public class BlogDbContext : DbContext
     {
-        public BlogDbContext(DbContextOptions options) : base(options)
-        {
 
+        public BlogDbContext(DbContextOptions<BlogDbContext> options)
+            : base(options)
+        {
         }
 
         public DbSet<BlogPost> BlogPosts { get; set; }

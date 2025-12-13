@@ -19,4 +19,10 @@ html {
 
 body {
   margin-bottom: 60px;
+
+}
+
+.blog-details-content img {
+    max-width: 100%;
+
 }
