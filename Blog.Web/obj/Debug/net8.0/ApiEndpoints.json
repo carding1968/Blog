@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "Blog.Web.Controllers.BlogPostLikeController",
+    "Method": "GetTotalLikesForBlog",
+    "RelativePath": "api/BlogPostLike/{blogPostId}/totalLikes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "blogPostId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Blog.Web.Controllers.BlogPostLikeController",
+    "Method": "AddLike",
+    "RelativePath": "api/BlogPostLike/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addLikeRequest",
+        "Type": "Blog.Web.Models.ViewModel.AddLikeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Blog.Web.Controllers.ImagesController",
     "Method": "Upload",
     "RelativePath": "api/Images",
