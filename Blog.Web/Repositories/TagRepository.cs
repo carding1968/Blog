@@ -47,11 +47,20 @@ namespace Blog.Web.Repositories
 
         }
 
-        public async Task<IEnumerable<Tag>> GetAll()
+        public async Task<IEnumerable<Tag>> GetAll(string? searchQuery)
         {
-            var tags = await blogDbContext.Tags.ToListAsync();
+            //var tags = await blogDbContext.Tags.Where(x => x %).ToListAsync();
 
-            return tags;
+            var query = blogDbContext.Tags.AsQueryable();
+
+            if (string.IsNullOrWhiteSpace(searchQuery) == false) {
+                query = query.Where(x => x.Name.Contains(searchQuery) || x.DisplayName.Contains(searchQuery));
+            }
+
+
+
+
+            return await query.ToListAsync();
         }
 
         public async Task<Tag?> Update(Tag tag)

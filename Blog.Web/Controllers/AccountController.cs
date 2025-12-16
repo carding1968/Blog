@@ -23,29 +23,38 @@ namespace Blog.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel registerViewModel) {
 
-            var identityUser = new IdentityUser {
-                UserName = registerViewModel.Username,
-                Email = registerViewModel.Email
 
-            };
+            if (ModelState.IsValid) {
+                var identityUser = new IdentityUser
+                {
+                    UserName = registerViewModel.Username,
+                    Email = registerViewModel.Email
+
+                };
 
 
-            var identityResult = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
+                var identityResult = await _userManager.CreateAsync(identityUser, registerViewModel.Password);
 
-            if (identityResult.Succeeded) {
-                //assign user role
+                if (identityResult.Succeeded)
+                {
+                    //assign user role
 
-                var roleIdentityResult = await _userManager.AddToRoleAsync(identityUser, "User");
+                    var roleIdentityResult = await _userManager.AddToRoleAsync(identityUser, "User");
 
-                if (roleIdentityResult.Succeeded) {
+                    if (roleIdentityResult.Succeeded)
+                    {
 
-                    //Show Success notif
-                    return RedirectToAction("Register");
-                }
+                        //Show Success notif
+                        return RedirectToAction("Register");
+                    }
+                }   
             }
 
+
+            
+
             //show error
-            return View("Register");
+            return View();
 
         }
 
@@ -60,17 +69,25 @@ namespace Blog.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel) {
 
-            var signInResult = await _signInManager.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, false, false);
+            if (ModelState.IsValid) {
 
-            if (signInResult != null && signInResult.Succeeded) {
+                var signInResult = await _signInManager.PasswordSignInAsync(loginViewModel.Username, loginViewModel.Password, false, false);
 
-                if (!string.IsNullOrWhiteSpace(loginViewModel.ReturnUrl)) {
-                    return Redirect(loginViewModel.ReturnUrl);
+                if (signInResult != null && signInResult.Succeeded)
+                {
+
+                    if (!string.IsNullOrWhiteSpace(loginViewModel.ReturnUrl))
+                    {
+                        return Redirect(loginViewModel.ReturnUrl);
+                    }
+
+                    return RedirectToAction("Index", "Home");
+
                 }
-
-                return RedirectToAction("Index", "Home");
-            
             }
+
+
+            
 
             //show error
             return View();

@@ -4,7 +4,7 @@ namespace Blog.Web.Repositories
 {
     public interface ITagRepository
     {
-        Task<IEnumerable<Tag>> GetAll();
+        Task<IEnumerable<Tag>> GetAll(string? searchQuery = null);
 
         Task<Tag> Get(Guid id);
 

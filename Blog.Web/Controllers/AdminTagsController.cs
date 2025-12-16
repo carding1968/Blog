@@ -28,6 +28,12 @@ namespace Blog.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddTagRequest addTagRequest) 
         {
+
+            ValidateTagRequest(addTagRequest);
+
+            if (ModelState.IsValid == false) {
+                return View();
+            }
             Tag tag = new Tag();
             tag.Name = addTagRequest.Name;
             tag.DisplayName = addTagRequest.DisplayName;
@@ -39,9 +45,9 @@ namespace Blog.Web.Controllers
 
         [HttpGet]
         [ActionName("List")]
-        public async Task<IActionResult> List() {
+        public async Task<IActionResult> List(string? searchQuery) {
            
-           var tags = await tagRepository.GetAll(); 
+           var tags = await tagRepository.GetAll(searchQuery); 
 
 
 
@@ -114,6 +120,15 @@ namespace Blog.Web.Controllers
 
             //show error notif
             return RedirectToAction("Edit", new { id = editTagRequest.Id });
+        }
+
+        private void ValidateTagRequest(AddTagRequest addTagRequest) {
+
+            if (addTagRequest.Name is not null && addTagRequest.DisplayName is not null) {
+                if (addTagRequest.Name == addTagRequest.DisplayName) {
+                    ModelState.AddModelError("DisplayName", "Name cannot be the same as Display Name");
+                }
+            }
         }
 
     }
