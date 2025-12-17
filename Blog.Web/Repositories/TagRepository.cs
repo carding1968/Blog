@@ -22,6 +22,11 @@ namespace Blog.Web.Repositories
             return tag;
         }
 
+        public async Task<int> Count()
+        {
+            return await blogDbContext.Tags.CountAsync();
+        }
+
         public async Task<Tag?> Delete(Guid id)
         {
             var tag = await blogDbContext.Tags.FindAsync(id);
@@ -47,7 +52,7 @@ namespace Blog.Web.Repositories
 
         }
 
-        public async Task<IEnumerable<Tag>> GetAll(string? searchQuery)
+        public async Task<IEnumerable<Tag>> GetAll(string? searchQuery, string? sortBy, string? sortDirection, int pageNumber = 1, int pageSize = 100)
         {
             //var tags = await blogDbContext.Tags.Where(x => x %).ToListAsync();
 
@@ -56,6 +61,27 @@ namespace Blog.Web.Repositories
             if (string.IsNullOrWhiteSpace(searchQuery) == false) {
                 query = query.Where(x => x.Name.Contains(searchQuery) || x.DisplayName.Contains(searchQuery));
             }
+
+            if (string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                var isDec = string.Equals(sortDirection, "Desc", StringComparison.OrdinalIgnoreCase);
+
+                if (string.Equals(sortBy, "Name", StringComparison.OrdinalIgnoreCase)) {
+                    query = isDec ? query.OrderByDescending(x => x.Name) : query.OrderBy(x => x.Name);
+                }
+
+                if (string.Equals(sortBy, "DisplayName", StringComparison.OrdinalIgnoreCase))
+                {
+                    query = isDec ? query.OrderByDescending(x => x.DisplayName) : query.OrderBy(x => x.DisplayName);
+                }
+
+
+            }
+
+            //pagination
+            var skipResult = (pageNumber - 1) * pageSize;
+
+            query = query.Skip(skipResult).Take(pageSize);
 
 
 

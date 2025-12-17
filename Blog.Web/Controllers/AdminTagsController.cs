@@ -45,9 +45,28 @@ namespace Blog.Web.Controllers
 
         [HttpGet]
         [ActionName("List")]
-        public async Task<IActionResult> List(string? searchQuery) {
-           
-           var tags = await tagRepository.GetAll(searchQuery); 
+        public async Task<IActionResult> List(string? searchQuery, string? sortBy, string? sortDirection, int pageSize = 3, int pageNumber = 1) {
+
+            var totalRecords = await tagRepository.Count();
+            var totalPages = Math.Ceiling((decimal)totalRecords / pageSize);
+
+            if (pageNumber > totalPages) {
+                pageNumber--;
+            }
+
+            if (pageNumber < 1) {
+                pageNumber++;
+            }
+
+
+            ViewBag.SearchQuery = searchQuery;
+            ViewBag.SortBy = sortBy;
+            ViewBag.SortDirection = sortDirection;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.PageSize = pageSize;
+
+            var tags = await tagRepository.GetAll(searchQuery, sortBy, sortDirection, pageNumber, pageSize); 
 
 
 
